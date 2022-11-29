@@ -1,26 +1,42 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import { ref, watch } from 'vue';
+import PokemonCategory from './components/PokemonCategory/PokemonCategory.vue';
+import PokemonDropdown from './components/PokemonDropdown/PokemonDropdown.vue';
+import pokemons from '../pokemon.json';
 
-<script>
-import HelloWorld from './components/HelloWorld.vue';
+console.log({ pokemons });
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
+const pokemonCategories = ref(Object.keys(pokemons));
+const selectedPokemonCategory = ref(pokemons.grass);
+const selectedPokemonCategoryName = ref(Object.keys(pokemons)[0]);
+
+const handlePokemonCategorySelect = (event) => {
+  selectedPokemonCategoryName.value = event.target.value;
 };
+
+watch(selectedPokemonCategoryName, (newValue) => {
+  selectedPokemonCategory.value = pokemons[newValue];
+});
+
+console.log(selectedPokemonCategory.value);
+
 </script>
 
+<template>
+  <div>
+    <h1>Pokemon app</h1>
+    <PokemonDropdown
+      :categories='pokemonCategories'
+      :selectHandler='handlePokemonCategorySelect'
+    />
+    <PokemonCategory
+    :pokemonCategory='selectedPokemonCategory' />
+  </div>
+</template>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  html, body{
+    padding: 0;
+    margin: 0;
+  }
 </style>
