@@ -2,9 +2,7 @@
 import { ref, watch } from 'vue';
 import PokemonCategory from './components/PokemonCategory/PokemonCategory.vue';
 import PokemonDropdown from './components/PokemonDropdown/PokemonDropdown.vue';
-import pokemons from '../pokemon.json';
-
-console.log({ pokemons });
+import pokemons from './assets/pokemon.json';
 
 const pokemonCategories = ref(Object.keys(pokemons));
 const selectedPokemonCategory = ref(pokemons.grass);
@@ -17,8 +15,6 @@ const handlePokemonCategorySelect = (event) => {
 watch(selectedPokemonCategoryName, (newValue) => {
   selectedPokemonCategory.value = pokemons[newValue];
 });
-
-console.log(selectedPokemonCategory.value);
 
 </script>
 

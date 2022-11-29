@@ -9,8 +9,6 @@ const props = defineProps({
   },
 });
 
-console.log(props.pokemonCategory);
-
 </script>
 
 <template>
